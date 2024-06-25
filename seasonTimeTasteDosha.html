@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Table Snapshot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 90%;
+            max-width: 1920px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .table-container, .svg-container {
+            flex: 1;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #4CAF50; /* Green */
+            font-size: 16px; /* Standard font size for text */
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        tr:hover {background-color: #ddd;}
+        .increase, .decrease {
+            font-size: 32px; /* Double the size of the text for arrows */
+            font-weight: bold; /* Bold font for thicker arrows */
+        }
+        .increase {
+            color: red; /* Red for increase */
+        }
+        .decrease {
+            color: green; /* Green for decrease */
+        }
+        .seasonsTable td {
+            font-size: 14px; /* Slightly smaller font for clarity */
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block; /* Centers the SVG in the viewport */
+        }
+        .season-text {
+            font-size: 12px; /* Font size */
+            font-family: Arial, sans-serif;
+            dominant-baseline: middle;
+            text-anchor: middle;
+        }
+        tspan {
+            x: 0; /* Centering each tspan element */
+            dy: 1.2em; /* Line height adjustment */
+        }
+        #snapshotContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #snapshotContainer canvas {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- SVG for Seasonal Circle -->
+  <div class="svg-container">
+    <svg viewBox="0 0 250 250">
+      <!-- Outer boundary circle -->
+      <circle cx="125" cy="125" r="115" stroke="#4CAF50" stroke-width="1" fill="none"/>
+      <!-- Inner boundary circle -->
+      <circle cx="125" cy="125" r="65" stroke="#4CAF50" stroke-width="1" fill="none"/>
+
+      <!-- Positioning each season around the circle -->
+      <text class="season-text" x="125" y="25" transform="rotate(0, 125, 25)">
+        <tspan x="125">Vasant Ritu</tspan>
+        <tspan x="125" dy="15">(Spring)</tspan>
+      </text>
+      <text class="season-text" x="205" y="70" transform="rotate(60, 205, 70)">
+        <tspan x="205">Grishma Ritu</tspan>
+        <tspan x="205" dy="15">(Summer)</tspan>
+      </text>
+      <text class="season-text" x="205" y="180" transform="rotate(120, 205, 180)">
+        <tspan x="205">Varsha Ritu</tspan>
+        <tspan x="205" dy="15">(Monsoon)</tspan>
+      </text>
+      <text class="season-text" x="125" y="220" transform="rotate(180, 125, 220)">
+        <tspan x="125">Sharad Ritu</tspan>
+        <tspan x="125" dy="15">(Autumn)</tspan>
+      </text>
+      <text class="season-text" x="45" y="180" transform="rotate(240, 45, 180)">
+        <tspan x="45">Hemant Ritu</tspan>
+        <tspan x="45" dy="15">(Pre-Winter)</tspan>
+      </text>
+      <text class="season-text" x="45" y="70" transform="rotate(300, 45, 70)">
+        <tspan x="45">Shishir Ritu</tspan>
+        <tspan x="45" dy="15">(Winter)</tspan>
+      </text>
+    </svg>
+  </div>
+
+<br/>
+<br/>
+  <div class="table-container">
+    <!-- Table for Doshas and Seasons -->
+    <table class="seasonsTable">
+      <tr>
+        <th>Doshas</th>
+        <th>Chaya (local accumulation)</th>
+        <th>Prakopa (excessive local accumulation)</th>
+        <th>Prashamana (Auto pacification of Dosha)</th>
+      </tr>
+      <tr>
+        <td>Vata Dosha</td>
+        <td>Greeshma (summer)</td>
+        <td>Varsha (Raining season)</td>
+        <td>Sharath (Autumn)</td>
+      </tr>
+      <tr>
+        <td>Pitta Dosha</td>
+        <td>Varsha (Rainy season)</td>
+        <td>Sharath (Autumn)</td>
+        <td>Hemantha (early winter)</td>
+      </tr>
+      <tr>
+        <td>Kapha Dosha</td>
+        <td>Shishira (winter)</td>
+        <td>Vasanta (spring)</td>
+        <td>Greeshma (summer)</td>
+      </tr>
+    </table>
+
+    <!-- Table for Tastes and Dosha Effects -->
+    <table>
+      <tr>
+        <th>TASTE</th>
+        <th>VATA</th>
+        <th>PITTA</th>
+        <th>KAPHA</th>
+      </tr>
+      <tr>
+        <td>Sweet</td>
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+      </tr>
+      <tr>
+        <td>Sour</td>
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+      </tr>
+      <tr>
+        <td>Salty</td>
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+      </tr>
+      <tr>
+        <td>Pungent</td>
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+      </tr>
+      <tr>
+        <td>Bitter</td>
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+      </tr>
+      <tr>
+        <td>Astringent</td>
+        <td class="increase">&#x2191;</td> <!-- Up arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+        <td class="decrease">&#x2193;</td> <!-- Down arrow -->
+      </tr>
+    </table>
+  </div>
+</div>
+
+<br/>
+
+<table id="mainTable">
+</table>
+<button onclick="captureCells()">Capture Cells</button>
+<div id="snapshotContainer"></div>
+
+<script>
+    const seasons = [
+        {
+            name: 'Vasant Ritu',
+            preceding: 'Shishir Ritu',
+            next: 'Grishma Ritu',
+            effect: 'Kapha is aggravated'
+        },
+        {
+            name: 'Grishma Ritu',
+            preceding: 'Vasant Ritu',
+            next: 'Varsha Ritu',
+            effect: 'Vata is accumulated and Kapha is pacified'
+        },
+        {
+            name: 'Varsha Ritu',
+            preceding: 'Grishma Ritu',
+            next: 'Sharad Ritu',
+            effect: 'Vata is aggravated and Pitta is accumulated'
+        },
+        {
+            name: 'Sharad Ritu',
+            preceding: 'Varsha Ritu',
+            next: 'Hemant Ritu',
+            effect: 'Pitta is aggravated and Vata is pacified'
+        },
+        {
+            name: 'Hemant Ritu',
+            preceding: 'Sharad Ritu',
+            next: 'Shishir Ritu',
+            effect: 'Pitta is pacified'
+        },
+        {
+            name: 'Shishir Ritu',
+            preceding: 'Hemant Ritu',
+            next: 'Vasant Ritu',
+            effect: 'Kapha is accumulated'
+        }
+    ];
+
+    const timesOfDay = [
+        { time: '6 am to 10 am', effect: 'Kapha' },
+        { time: '10 am to 2 pm', effect: 'Pitta' },
+        { time: '2 pm to 6 pm', effect: 'Vata' },
+        { time: '6 pm to 10 pm', effect: 'Kapha' },
+        { time: '10 pm to 2 am', effect: 'Pitta' },
+        { time: '2 am to 6 am', effect: 'Vata' }
+    ];
+
+    function getSeasonEffect(name) {
+        const season = seasons.find(season => season.name === name);
+        return season ? season.effect : 'Unknown effect';
+    }
+
+    function createSubsectionTable(period, season, precedingOrNext, precedingOrNextSeason) {
+        const table = document.createElement('table');
+        table.className = 'seasonsTable';
+        const thead = document.createElement('thead');
+        const tr = document.createElement('tr');
+
+        const headers = ['Time of Day', 'Effect of Time', 'Effect of Season'];
+        if (precedingOrNext) {
+            headers.push(precedingOrNext);
+        }
+
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            tr.appendChild(th);
+        });
+
+        thead.appendChild(tr);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        timesOfDay.forEach(time => {
+            const tr = document.createElement('tr');
+
+            const tdTime = document.createElement('td');
+            tdTime.textContent = time.time;
+            tr.appendChild(tdTime);
+
+            const tdEffectTime = document.createElement('td');
+            tdEffectTime.textContent = time.effect;
+            tr.appendChild(tdEffectTime);
+
+            const tdEffectSeason = document.createElement('td');
+            tdEffectSeason.textContent = season.effect;
+            tr.appendChild(tdEffectSeason);
+
+            if (precedingOrNext) {
+                const tdPrecedingNext = document.createElement('td');
+                tdPrecedingNext.textContent = getSeasonEffect(precedingOrNextSeason);
+                tr.appendChild(tdPrecedingNext);
+            }
+
+            tbody.appendChild(tr);
+        });
+
+        table.appendChild(tbody);
+        return table;
+    }
+
+    const table = document.getElementById('mainTable');
+
+    let row;
+    seasons.forEach((season, index) => {
+        if (index % 3 === 0) {
+            row = document.createElement('tr');
+            table.appendChild(row);
+        }
+        const cell = document.createElement('td');
+        const seasonContainer = document.createElement('div');
+        seasonContainer.className = 'season-container';
+
+        const title = document.createElement('h2');
+        title.textContent = season.name;
+        seasonContainer.appendChild(title);
+
+        const beginning = createSubsectionTable('Beginning', season, 'Effect of Preceding Season', season.preceding);
+        const mid = createSubsectionTable('Mid', season);
+        const end = createSubsectionTable('End', season, 'Effect of Next Season', season.next);
+
+        const subsections = [
+            { title: `Beginning (preceding season: ${season.preceding})`, table: beginning },
+            { title: 'Mid', table: mid },
+            { title: `End (next season: ${season.next})`, table: end }
+        ];
+
+        subsections.forEach(subsection => {
+            const subsectionDiv = document.createElement('div');
+            subsectionDiv.className = 'subsection';
+
+            const subtitle = document.createElement('h3');
+            subtitle.textContent = subsection.title;
+            subsectionDiv.appendChild(subtitle);
+
+            subsectionDiv.appendChild(subsection.table);
+            seasonContainer.appendChild(subsectionDiv);
+        });
+
+        cell.appendChild(seasonContainer);
+        row.appendChild(cell);
+    });
+
+    function captureCells() {
+        const seasonContainers = document.querySelectorAll('.season-container');
+        seasonContainers.forEach((container, index) => {
+            html2canvas(container).then(canvas => {
+                document.getElementById('snapshotContainer').appendChild(canvas);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
+
